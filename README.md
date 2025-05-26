@@ -2,7 +2,6 @@ Inventory system project.<br>
 <br>
 Project start:<br>
 1.  The project contains graphic elements from Bootstrap 5.3 and may require the following commands: <br>
-<br>
 npm install bootstrap@5.3.3<br>
 npm run dev<br>
 npm run build<br>
