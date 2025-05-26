@@ -1,7 +1,9 @@
 @extends('layouts.app')
      @section('title', 'Product Details')
      @section('content')
-         <h1 class="h3 mb-3">{{ $product->name }}</h1>
+
+        <h1 class="h3 mb-3">{{ $product->name }}</h1>
+
          <p><strong>SKU:</strong> {{ $product->sku }}</p>
          <p><strong>Description:</strong> {{ $product->description }}</p>
          <p><strong>Price:</strong> {{ $product->price }}</p>

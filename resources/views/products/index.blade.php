@@ -24,8 +24,9 @@
                  </div>
              </div>
          </form>
-         <table class="table">
-             <thead>
+
+         <table class="table table-striped">
+             <thead style="background-color: #ff3131 !imporant;">
                  <tr>
                      <th>ID</th>
                      <th>Name</th>
@@ -34,6 +35,7 @@
                      <th>Price</th>
                      <th>Quantity</th>
                      <th>Actions</th>
+                     <th>Comments</th>
                  </tr>
              </thead>
              <tbody>
@@ -53,9 +55,12 @@
                                  @method('DELETE')
                                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
                              </form>
-                                @if ($product->quantity < 5)
-                                    <span class="badge bg-danger">Low Stock</span>
-                                @endif
+
+                         </td>
+                         <td>
+                             @if ($product->quantity < 5)
+                                <button type="button" class="btn btn-danger btn-sm disabled">Low Stock</button>
+                            @endif
                          </td>
                      </tr>
                  @endforeach

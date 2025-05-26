@@ -27,7 +27,7 @@
        {
            $request->validate([
                'name' => 'required|string|max:255',
-               'email' => 'required|email|unique:suppliers,email',
+               'email' => 'email|unique:suppliers,email',
                'phone' => 'required|string|max:20',
                'address' => 'required|string|max:255',
            ]);
@@ -49,7 +49,7 @@
        {
            $request->validate([
                'name' => 'required|string|max:255',
-               'email' => 'required|email|unique:suppliers,email,' . $supplier->id,
+               'email' => 'email|unique:suppliers,email,' ,
                'phone' => 'required|string|max:20',
                'address' => 'required|string|max:255',
            ]);
