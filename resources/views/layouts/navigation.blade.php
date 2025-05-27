@@ -1,9 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
        <div class="container-fluid">
            <!-- Logo -->
-           <a class="navbar-brand" href="{{ route('dashboard') }}">
-               {{ config('app.name', 'Inventory System') }}
-           </a>
 
            <!-- Hamburger Toggle for Mobile -->
            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

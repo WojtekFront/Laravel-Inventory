@@ -79,17 +79,44 @@
            return redirect()->route('products.index')->with('success', 'Product deleted successfully');
        }
 
-       public function export()
-       {
-           $products = Product::with('category')->get();
-           $csv = "ID,Nazwa,SKU,Kategoria,Cena,Ilość\n";
+     public function export()
+        {
+            try {
+                $products = Product::with('category')->get();
+                if ($products->isEmpty()) {
+                    return redirect()->route('products.index')->with('error', 'No products found to export.');
+                }
 
-           foreach ($products as $product) {
-               $csv .= "{$product->id},{$product->name},{$product->sku},{$product->category->name},{$product->price},{$product->quantity}\n";
-           }
+                $headers = [
+                    'Content-Type' => 'text/csv; charset=UTF-8',
+                    'Content-Disposition' => 'attachment; filename="products.csv"',
+                    'Content-Encoding' => 'UTF-8',
+                ];
 
-           return response($csv)
-               ->header('Content-Type', 'text/csv')
-               ->header('Content-Disposition', 'attachment; filename="products.csv"');
-       }
+                $callback = function () use ($products) {
+                    $file = fopen('php://output', 'w');
+                    fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF)); // Add UTF-8 BOM for Polish characters
+                    fputcsv($file, ['ID', 'Name', 'SKU', 'Category', 'Price', 'Quantity']);
+
+                    foreach ($products as $product) {
+                        $categoryName = $product->category ? $product->category->name : 'No Category';
+                        fputcsv($file, [
+                            $product->id,
+                            $product->name,
+                            $product->sku,
+                            $categoryName,
+                            $product->formated_price,
+                            $product->quantity,
+                        ]);
+                    }
+
+                    fclose($file);
+                };
+
+                return response()->stream($callback, 200, $headers);
+            } catch (\Exception $e) {
+                \Log::error('Export error: ' . $e->getMessage());
+                return redirect()->route('products.index')->with('error', 'Failed to export products: ' . $e->getMessage());
+            }
+        }
    }
