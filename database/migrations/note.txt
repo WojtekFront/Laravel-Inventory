@@ -1,9 +1,0 @@
-INSERT INTO users (name, email, password, email_verified_at, created_at, updated_at) VALUES
-('Jan', 'jan@example.com', '$2y$10$3bX9z5Qz7pX8y2WvN0kM.uW6kL9jR8tY2vZ7mP3nQ4wX5Y6zA1B2C', NOW(), NOW(), NOW()),
-('Anna', 'anna@example.com', '$2y$10$7cY9z5Qz7pX8y2WvN0kM.uW6kL9jR8tY2vZ7mP3nQ4wX5Y6zA1B2D', NOW(), NOW(), NOW()),
-('Piotr', 'piotr@example.com', '$2y$10$9dY9z5Qz7pX8y2WvN0kM.uW6kL9jR8tY2vZ7mP3nQ4wX5Y6zA1B2E', NOW(), NOW(), NOW()),
-('Kasia', 'kasia@example.com', '$2y$10$b2Y9z5Qz7pX8y2WvN0kM.uW6kL9jR8tY2vZ7mP3nQ4wX5Y6zA1B2F', NOW(), NOW(), NOW()),
-('Tomasz', 'tomasz@example.com', '$2y$10$d4Y9z5Qz7pX8y2WvN0kM.uW6kL9jR8tY2vZ7mP3nQ4wX5Y6zA1B2G', NOW(), NOW(), NOW());
-
-
-password123

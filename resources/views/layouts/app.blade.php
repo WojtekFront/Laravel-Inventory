@@ -1,59 +1,54 @@
 <!DOCTYPE html>
-   <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-   <head>
-       <meta charset="utf-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1">
-       <meta name="csrf-token" content="{{ csrf_token() }}">
-       <title>{{ config('app.name', 'Inventory System') }} - @yield('title')</title>
-       @vite(['resources/css/app.css', 'resources/js/app.js'])
-       {{-- @import 'bootstrap/dist/css/bootstrap.min.css'; --}}
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'Inventory System')</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="container mt-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            @auth
+                <a class="nav-link m-2" href="{{ route('dashboard') }}">Dashboard</a>
+                <a class="nav-link m-2" href="{{ route('products.index') }}">Inventory</a>
+                <a class="nav-link m-2" href="{{ route('shops.index') }}">Shops</a>
+            @endauth
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    @auth
+                        <a class="nav-link" href="{{ route('logout') }}"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    @endauth
+                    @guest
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                        <a class="nav-link" href="{{ route('register') }}">Register</a>
+                    @endguest
+                </div>
+            </div>
+        </div>
+    </nav>
 
-
-   </head>
-   <body>
-       @include('layouts.navigation')
-       <div class="container-fluid">
-           <div class="row">
-               <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                   <div class="sidebar-sticky">
-                       <ul class="nav flex-column">
-                           <li class="nav-item">
-                               <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                                   Dashboard
-                               </a>
-                           </li>
-                           <li class="nav-item">
-                               <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}">
-                                   Products
-                               </a>
-                           </li>
-                           <li class="nav-item">
-                               <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
-                                   Categories
-                               </a>
-                           </li>
-                           <li class="nav-item">
-                               <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" href="{{ route('suppliers.index') }}">
-                                   Suppliers
-                               </a>
-                           </li>
-                           <li class="nav-item">
-                               <a class="nav-link {{ request()->routeIs('stock-entries.*') ? 'active' : '' }}" href="{{ route('stock-entries.index') }}">
-                                   Stock Entries
-                               </a>
-                           </li>
-                       </ul>
-                   </div>
-               </nav>
-               <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                   @if (session('success'))
-                       <div class="alert alert-success">
-                           {{ session('success') }}
-                       </div>
-                   @endif
-                   @yield('content')
-               </main>
-           </div>
-       </div>
-   </body>
-   </html>
+    <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        @yield('content')
+    </div>
+</body>
+</html>
