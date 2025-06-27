@@ -1,62 +1,120 @@
+Inventory System
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+This is a Laravel-based application for managing products and shops, built as a portfolio project to showcase my skills in web and API development. It includes a web interface for CRUD operations and a RESTful API for managing products, secured with Laravel Sanctum. The project demonstrates my ability to work with Laravel, database relationships, authentication, and responsive frontends.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Web Interface:
+- User authentication (login/register) powered by Laravel Breeze.
+- Full CRUD functionality for products (create, read, update, delete) with form validation.
+- Shop management (create and list shops).
+- Responsive UI built with Bootstrap 5 for a clean user experience.
+- Database seeding for categories, shops, and products, including custom timestamps.
 
-## About Laravel
+RESTful API:
+- Secure endpoints for adding (POST /api/products) and deleting (DELETE /api/products/{id}) products.
+- Token-based authentication using Laravel Sanctum.
+- JSON responses with appropriate HTTP status codes (201 for creation, 200 for deletion).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Database:
+- Models (User, Category, Shop, Product) with relationships (belongsTo).
+- MySQL database with migrations and seeders for initial data.
+- Automatic and manual management of created_at and updated_at timestamps.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Technologies
+- Backend: PHP 8, Laravel 12
+- Frontend: Laravel Blade, Bootstrap 5
+- API Authentication: Laravel Sanctum
+- Database: MySQL
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Setup Instructions Here's how to get the project running locally.
 
-## Learning Laravel
+Prerequisites
+PHP 8+
+Composer
+MySQL
+Node.js and npm
+Herd, Xampp (optional, for local PHP environment)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Installation Steps
+Clone the repository: git clone https://github.com/WojtekFront/Laravel-Inventory.gitcd inventory-system
+Install PHP dependencies: 
+composer install
+Install frontend dependencies: 
+npm install
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Set up environment file: copy .env.example .env Edit .env to include your database details: 
+DB_CONNECTION=mysql 
+DB_HOST=127.0.0.1 
+DB_PORT=3306 
+DB_DATABASE=inventory_system 
+DB_USERNAME=root 
+DB_PASSWORD= 
+SANCTUM_STATEFUL_DOMAINS=127.0.0.1:8000,localhost:8000
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Generate application key: 
+php artisan key:generate
 
-## Laravel Sponsors
+Run database migrations and seeders: 
+php artisan migrate:fresh --seed
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Build frontend assets: 
+npm run build
 
-### Premium Partners
+Start the development server: 
+php artisan serve 
+npm run dev 
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Endpoints
+Create Product
+Method: POST
+URL: /api/products
 
-## Contributing
+Headers:
+Authorization: Bearer
+Content-Type: application/json
+Body: { "name": "Test Product", "sku": "TEST-001", "description": "A test product", "price": 99.99, "quantity": 10, "category_id": 1, "shop_id": 1 }
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Response (201 Created): { "message": "Product added successfully", "product": { "id": 1, "name": "Test Product", "sku": "TEST-001", "description": "A test product", "price": 99.99, "quantity": 10, "category_id": 1, "shop_id": 1, "created_at": "2025-06-25T15:00:00.000000Z", "updated_at": "2025-06-25T15:00:00.000000Z" } }
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+Delete Product
+Method: DELETE
+URL: /api/products/{id}
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Headers:
+Authorization: Bearer
 
-## License
+Response (200 OK): { "message": "Product deleted successfully" }
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Testing API Use Postman or cURL to test endpoints:
+
+Create product
+
+curl -X POST http://127.0.0.1:8000/api/products 
+-H "Authorization: Bearer " 
+-H "Content-Type: application/json" 
+-d '{"name":"Test Product","sku":"TEST-001","description":"A test product","price":99.99,"quantity":10,"category_id":1,"shop_id":1}'
+
+Delete product:
+curl -X DELETE http://127.0.0.1:8000/api/products/1 
+-H "Authorization: Bearer "
+
+Future Improvements
+- Add more API endpoints for listing and updating products.
+- Implement API resources for cleaner JSON responses.
+- Add pagination and filtering for product lists.
+- Introduce unit tests using Pest.
+
+
+
+Contact Feel free to reach out for feedback or questions:
+
+
+
+
+
+
+
+
+
+GitHub: https://github.com/your-username
