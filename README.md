@@ -43,11 +43,17 @@ npm install
 
 Set up environment file: copy .env.example .env Edit .env to include your database details: 
 DB_CONNECTION=mysql 
+
 DB_HOST=127.0.0.1 
+
 DB_PORT=3306 
+
 DB_DATABASE=inventory_system 
+
 DB_USERNAME=root 
+
 DB_PASSWORD= 
+
 SANCTUM_STATEFUL_DOMAINS=127.0.0.1:8000,localhost:8000
 
 Generate application key: 

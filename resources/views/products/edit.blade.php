@@ -56,6 +56,20 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        <div class="mb-3">
+            <label for="shop_id" class="form-label">Shop</label>
+            <select name="shop_id" class="form-control @error('shop_id') is-invalid @enderror">
+                <option value="">Select Shop</option>
+                @foreach ($shops as $shop)
+                    <option value="{{ $shop->id }}" @if(old('shop_id', $product->shop_id) == $shop->id) selected @endif>
+                        {{ $shop->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('shop_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 @endsection
