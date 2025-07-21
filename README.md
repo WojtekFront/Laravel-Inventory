@@ -27,14 +27,14 @@ Technologies
 
 Setup Instructions Here's how to get the project running locally.
 
-Prerequisites
-PHP 8+
-Composer
-MySQL
-Node.js and npm
-Herd, Xampp (optional, for local PHP environment)
+Prerequisites:
+- PHP 8+,
+- Composer,
+- MySQL,
+- Node.js and npm,
+- Herd, Xampp (optional, for local PHP environment)
 
-Installation Steps
+Installation Steps:
 Clone the repository: git clone https://github.com/WojtekFront/Laravel-Inventory.gitcd inventory-system
 Install PHP dependencies: 
 composer install
